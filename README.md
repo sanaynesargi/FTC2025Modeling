@@ -157,48 +157,4 @@ const constants = {
 }
 ```
 
-## 📈 Future Enhancements
-
-### Planned Features
-- [ ] **Wind Effects**: Environmental wind resistance modeling
-- [ ] **Multiple Ball Comparison**: Side-by-side trajectory analysis
-- [ ] **3D Visualization**: Full spatial trajectory representation
-- [ ] **Data Export**: CSV/JSON trajectory data export
-- [ ] **Field Overlay**: Official FTC field dimensions and obstacles
-- [ ] **Optimization Tools**: Automated parameter optimization for targets
-
-### Research Opportunities
-- [ ] **Advanced Magnus Modeling**: Non-linear spin effects
-- [ ] **Ball Deformation**: Impact of compression on aerodynamics
-- [ ] **Temperature Effects**: Air density variation modeling
-- [ ] **Multi-Physics**: Ball-to-ball collision simulation
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make changes to either Python model or web application
-4. Test thoroughly with various parameter ranges
-5. Commit with descriptive messages
-6. Push and create a Pull Request
-
-### Development Guidelines
-- **Physics Accuracy**: Verify all calculations against known physics principles
-- **Documentation**: Update README and code comments for new features
-- **Testing**: Include parameter validation and edge case handling
-- **Performance**: Optimize for real-time interaction in web application
-
-## 📜 License
-
-This project is open source and available under the MIT License.
-
-## 🙏 Acknowledgments
-
-- **FTC Community**: For ball specifications and gameplay insights
-- **Physics References**: Classical mechanics and aerodynamics literature  
-- **Open Source Libraries**: NumPy, SciPy, Matplotlib, Next.js, Chakra UI
-- **Educational Resources**: Khan Academy and university physics courses
-
----
-
 **Built for FTC Teams 🤖 | Advancing STEM Education 📚 | Open Source Physics 🔬**
