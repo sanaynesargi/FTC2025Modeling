@@ -11,7 +11,7 @@ C_D = 0.50             # drag coefficient (estimate)
 alpha_CL = 0.2         # Magnus coefficient factor for C_L = alpha * S (adjustable)
 
 # Ball (FTC Artifact)
-m = 0.07076            # kg (ball mass)
+m = 0.0748            # kg (ball mass)
 r_b = 0.1270 / 2       # m, ball radius (5 in diameter -> 0.1270 m)
 k = 0.4                # inertia factor for a solid sphere (I_b = k * m * r_b^2)
 
@@ -20,24 +20,26 @@ A = np.pi * r_b**2     # projected area
 # ----------------------------
 # Wheel / launcher inputs (change these as desired)
 # ----------------------------
-R_w = 0.050            # m, wheel radius (5 cm)
-m_w = 0.20             # kg, wheel mass
-omega_w0 = 400.0       # rad/s initial wheel angular velocity (≈ 3820 rpm)
+R_w = 0.048            # m, wheel radius (5 cm)
+m_w = 0.106             # kg, wheel mass
+omega_w0 = 628     # rad/s initial wheel angular velocity (≈ 3820 rpm)
 # Note: adjust omega_w0 to match your motor / gearing
 
 # ----------------------------
 # Compute exit speed & spin using impulse model
 # --------------------------`-
 I_b = k * m * r_b**2
-I_w = 0.5 * m_w * R_w**2
+I_w = (0.5 * m_w * R_w**2)
 
 V_wheel_surface = omega_w0 * R_w  # wheel surface speed
 
 denom = (1.0/m) + (r_b**2 / I_b) + (R_w**2 / I_w)
 J = (omega_w0 * R_w) / denom        # tangential impulse
-
 V_b = J / m                         # exit (center) speed of ball
 omega_b = (J * r_b) / I_b           # ball angular speed after launch
+
+# V_b = (omega_w0 * R_w) / (1 + (m * r_b**2)/I_b + (m * R_w**2)/I_w)
+# omega_b = (V_b * m * r_b) / I_b
 
 print(f"Exit speed V_b = {V_b:.2f} m/s")
 print(f"Ball spin omega_b = {omega_b:.2f} rad/s")
@@ -83,13 +85,13 @@ def trajectory_ode(t, y):
 # ----------------------------
 # Initial conditions
 # ----------------------------
-launch_angle_deg = 30.0  # degrees above horizontal, adjust as desired
+launch_angle_deg = 45  # degrees above horizontal, adjust as desired
 theta = np.deg2rad(launch_angle_deg)
 Vx0 = V_b * np.cos(theta)
 Vy0 = V_b * np.sin(theta)
 
 x0 = 0.0
-y0 = 1.0               # initial height, 1 m above ground (changeable)
+y0 = 0.17272               # initial height, 1 m above ground (changeable)
 
 y_init = [x0, y0, Vx0, Vy0]
 
