@@ -168,6 +168,51 @@ export default function PhysicsControls({
         </VStack>
       </Box>
 
+      {/* Wheel Mass Control */}
+      <Box>
+        <Text mb={2} fontWeight="semibold" color="blue.300">
+          Wheel Mass
+        </Text>
+        <VStack spacing={3}>
+          <Text fontSize="sm" color="gray.400">
+            {(parameters.wheel_mass || 0.106).toFixed(3)} kg
+          </Text>
+          <input
+            type="range"
+            min={0.05}
+            max={0.3}
+            step={0.001}
+            value={parameters.wheel_mass || 0.106}
+            onChange={(e) => updateParameter('wheel_mass', parseFloat(e.target.value))}
+            style={{
+              width: '100%',
+              height: '6px',
+              backgroundColor: '#4A5568',
+              borderRadius: '4px',
+              outline: 'none',
+              cursor: 'pointer'
+            }}
+          />
+          <input
+            type="number"
+            min={0.05}
+            max={0.3}
+            step={0.001}
+            value={parameters.wheel_mass || 0.106}
+            onChange={(e) => updateParameter('wheel_mass', parseFloat(e.target.value) || 0.106)}
+            style={{
+              width: '100%',
+              padding: '8px',
+              backgroundColor: '#2D3748',
+              border: '1px solid #4A5568',
+              borderRadius: '4px',
+              color: 'white',
+              fontSize: '14px'
+            }}
+          />
+        </VStack>
+      </Box>
+
       {/* Calculated Exit Conditions */}
       {exitConditions && (
         <Box p={4} bg="gray.800" borderRadius="md" border="1px" borderColor="gray.700">
@@ -204,7 +249,8 @@ export default function PhysicsControls({
             onClick={() => onParameterChange({
               omega_w0: 628,
               launch_angle_deg: 45,
-              initial_height: 0.17272
+              initial_height: 0.17272,
+              wheel_mass: 0.106
             })}
           >
             Default FTC
@@ -216,7 +262,8 @@ export default function PhysicsControls({
             onClick={() => onParameterChange({
               omega_w0: 400,
               launch_angle_deg: 30,
-              initial_height: 1.0
+              initial_height: 1.0,
+              wheel_mass: 0.106
             })}
           >
             Low Power
@@ -228,7 +275,8 @@ export default function PhysicsControls({
             onClick={() => onParameterChange({
               omega_w0: 800,
               launch_angle_deg: 60,
-              initial_height: 2.0
+              initial_height: 2.0,
+              wheel_mass: 0.106
             })}
           >
             High Arc

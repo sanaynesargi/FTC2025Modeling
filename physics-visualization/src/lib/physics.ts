@@ -31,6 +31,7 @@ export interface SimulationParameters {
   omega_w0: number;        // rad/s initial wheel angular velocity
   launch_angle_deg: number; // degrees above horizontal
   initial_height: number;   // m, initial height above ground
+  wheel_mass: number;      // kg, wheel mass
 }
 
 export interface TrajectoryPoint {
@@ -77,10 +78,13 @@ export class FTCPhysicsSimulation {
   /**
    * Calculate exit conditions from wheel launcher
    */
-  calculateExitConditions(omega_w0: number): { V_b: number; omega_b: number } {
+  calculateExitConditions(omega_w0: number, wheel_mass: number): { V_b: number; omega_b: number } {
     const { m, r_b, R_w } = this.constants;
     
-    const denom = (1.0 / m) + (r_b ** 2 / this.I_b) + (R_w ** 2 / this.I_w);
+    // Calculate wheel moment of inertia with variable mass
+    const I_w = 0.5 * wheel_mass * R_w ** 2;
+    
+    const denom = (1.0 / m) + (r_b ** 2 / this.I_b) + (R_w ** 2 / I_w);
     const J = (omega_w0 * R_w) / denom;  // tangential impulse
     const V_b = J / m;                   // exit speed of ball
     const omega_b = (J * r_b) / this.I_b; // ball angular speed after launch
@@ -134,10 +138,10 @@ export class FTCPhysicsSimulation {
     dt: number = 0.01,
     maxTime: number = 5.0
   ): TrajectoryPoint[] {
-    const { omega_w0, launch_angle_deg, initial_height } = params;
+    const { omega_w0, launch_angle_deg, initial_height, wheel_mass } = params;
     
     // Calculate exit conditions
-    const { V_b, omega_b } = this.calculateExitConditions(omega_w0);
+    const { V_b, omega_b } = this.calculateExitConditions(omega_w0, wheel_mass);
     
     // Initial conditions
     const theta = (launch_angle_deg * Math.PI) / 180;

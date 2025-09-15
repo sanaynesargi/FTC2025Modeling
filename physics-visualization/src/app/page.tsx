@@ -26,7 +26,8 @@ export default function Home() {
   const [parameters, setParameters] = useState<SimulationParameters>({
     omega_w0: 628,  // From Python code - 628 rad/s ≈ 6000 RPM
     launch_angle_deg: 45,
-    initial_height: 0.17272  // From Python code
+    initial_height: 0.17272,  // From Python code
+    wheel_mass: 0.106  // Default wheel mass in kg
   })
   const [trajectory, setTrajectory] = useState<TrajectoryPoint[]>([])
   const [isAnimating, setIsAnimating] = useState(false)
@@ -35,8 +36,8 @@ export default function Home() {
 
   // Calculate exit conditions whenever parameters change
   const exitConditions = useMemo(() => {
-    return simulation.calculateExitConditions(parameters.omega_w0)
-  }, [simulation, parameters.omega_w0])
+    return simulation.calculateExitConditions(parameters.omega_w0, parameters.wheel_mass)
+  }, [simulation, parameters.omega_w0, parameters.wheel_mass])
 
   // Recalculate trajectory when parameters change
   useEffect(() => {
